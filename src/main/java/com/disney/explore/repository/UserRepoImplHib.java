@@ -16,21 +16,19 @@ public class UserRepoImplHib implements UserRepo {
     private EntityManager entityManager;
 
     @Override
-    public void registrarUser(AppUser user) throws Exception {
-        AppUser userACrear = findByUsername(user);
+    public void registerUser(AppUser user) {
+        AppUser userACrear = findByUsername(user.getUsername());
         if (userACrear == null) entityManager.merge(user);
-        else {
-            throw new Exception("User already registrated!!!");
-        }
+        else System.out.println("El usuario ya existe!!!");
     }
 
     @Override
-    public AppUser findByUsername(AppUser user) {
-        String query = "FROM AppUser WHERE nombre = :nombre";
+    public AppUser findByUsername(String username) {
+        String query = "FROM AppUser WHERE username = :username";
         List<AppUser> userFound = entityManager.createQuery(query)
-                .setParameter("nombre", user.getUsername())
+                .setParameter("username", username)
                 .getResultList();
         if (userFound.isEmpty()) return null;
-        return (AppUser) userFound;
+        return userFound.get(0);
     }
 }
