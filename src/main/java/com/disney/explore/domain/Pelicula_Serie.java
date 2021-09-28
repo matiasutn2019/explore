@@ -19,7 +19,7 @@ public class Pelicula_Serie {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Image image;
+    private String image;
     private String titulo;
     private Date fecha_creacion;
     private Integer calificacion;

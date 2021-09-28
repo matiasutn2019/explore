@@ -18,7 +18,7 @@ public class Genero {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String nombre;
-    private Image image;
+    private String image;
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Pelicula_Serie> listGeneroPeli = new ArrayList<>();
 }

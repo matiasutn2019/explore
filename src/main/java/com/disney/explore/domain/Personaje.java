@@ -17,7 +17,7 @@ public class Personaje {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Image image;
+    private String image;
     private String nombre;
     private Integer edad;
     private Double peso;
