@@ -17,7 +17,8 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<AppUser> registrarUser(@RequestBody AppUser user) throws Exception {
-        userService.registrarUser(user);
+        userService.addRoleToUser(user.getUsername(), "ROLE_USER");
+        userService.registerUser(user);
         return ResponseEntity.ok().build();
     }
 }
