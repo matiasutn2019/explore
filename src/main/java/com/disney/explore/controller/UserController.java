@@ -2,6 +2,7 @@ package com.disney.explore.controller;
 
 import com.disney.explore.domain.AppUser;
 import com.disney.explore.service.UserService;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,8 +17,8 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<AppUser> registrarUser(@RequestBody AppUser user) throws Exception {
-        userService.addRoleToUser(user.getUsername(), "ROLE_USER");
+    public ResponseEntity<AppUser> registrarUser(@RequestBody AppUser user) {
+        //userService.addRoleToUser(user.getUsername(), "ROLE_USER");
         userService.registerUser(user);
         return ResponseEntity.ok().build();
     }
