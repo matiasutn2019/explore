@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PersonajeDTO {
 
+    private Long id;
     private String image;
     private String nombre;
 }
