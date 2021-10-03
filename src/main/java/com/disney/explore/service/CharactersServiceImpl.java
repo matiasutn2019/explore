@@ -56,11 +56,4 @@ public class CharactersServiceImpl implements CharactersService {
         List<Personaje> p = charactersRepo.getByMovie(id);
         return p;
     }
-
-    @Override
-    public void addCharacterToMovie(String nombre, String titulo) {
-        Personaje p = charactersRepo.getByName(nombre);
-        Pelicula_Serie peli = movieRepo.getByTitulo(titulo);
-        p.getPeliculas_series().add(peli);
-    }
 }

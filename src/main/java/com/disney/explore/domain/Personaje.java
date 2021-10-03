@@ -24,7 +24,7 @@ public class Personaje {
     private Integer edad;
     private Double peso;
     private String historia;
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL)
     private Collection<Pelicula_Serie> peliculas_series = new ArrayList<>();
 
     public Personaje(String image, String nombre, Integer edad, Double peso, String historia, Collection<Pelicula_Serie> peliculas_series) {

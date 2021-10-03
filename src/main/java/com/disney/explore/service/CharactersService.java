@@ -14,5 +14,4 @@ public interface CharactersService {
     Personaje getByName(String nombre);
     List<Personaje> getByAge(Integer edad);
     List<Personaje> getByMovie(Long id);
-    void addCharacterToMovie(String nombre, String titulo);
 }

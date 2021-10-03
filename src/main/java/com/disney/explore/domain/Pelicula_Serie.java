@@ -24,8 +24,7 @@ public class Pelicula_Serie {
     private String titulo;
     private Date fecha_creacion;
     private Integer calificacion; // la restricción 1-5 conviene hacerla en el html
-
-    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Genero> generos = new ArrayList<>();
 
     public Pelicula_Serie(String image, String titulo, Date fecha_creacion, Integer calificacion, List<Genero> generos) {

@@ -32,6 +32,10 @@ public class GeneroRepoImplHib implements GeneroRepo {
 
     @Override
     public void save(Genero genero) {
-        entityManager.merge(genero);
+        try {
+            entityManager.merge(genero);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

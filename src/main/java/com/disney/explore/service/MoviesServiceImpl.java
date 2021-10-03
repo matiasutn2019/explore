@@ -49,10 +49,4 @@ public class MoviesServiceImpl implements MoviesService {
         return movieRepo.getByIdGenero(id);
     }
 
-    @Override
-    public void addGenreToMovie(String titulo, String nombreGenero) {
-        Pelicula_Serie p = movieRepo.getByTitulo(titulo);
-        Genero g = generoRepo.findByNombre(nombreGenero);
-        p.getGeneros().add(g);
-    }
 }

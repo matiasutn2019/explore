@@ -17,6 +17,4 @@ public interface MoviesService {
     Pelicula_Serie getByName(String name);
 
     List<Pelicula_Serie> getByGenre(Long id);
-
-    void addGenreToMovie(String titulo, String nombreGenero);
 }
