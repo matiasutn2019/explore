@@ -1,9 +1,7 @@
 package com.disney.explore.service;
 
-import com.disney.explore.domain.AppUser;
 import com.disney.explore.domain.Pelicula_Serie;
 import com.disney.explore.domain.Personaje;
-import com.disney.explore.domain.Role;
 import com.disney.explore.dto.PersonajeDTO;
 import com.disney.explore.repository.CharactersRepo;
 import com.disney.explore.repository.MovieRepo;
@@ -32,39 +30,37 @@ public class CharactersServiceImpl implements CharactersService {
     }
 
     @Override
-    public void delete(String nombre) {
-        charactersRepo.delete(getByName(nombre));
+    public void delete(Long id) {
+        charactersRepo.delete(id);
     }
 
     @Override
-    public void update(Personaje personaje, String nombre) {
-        delete(nombre);
-        save(personaje);
+    public void update(Personaje personaje) {
+        charactersRepo.update(personaje);
     }
 
     @Override
     public Personaje getByName(String nombre) {
-        return charactersRepo.getByName(nombre);
+        Personaje p = charactersRepo.getByName(nombre);
+        return p;
     }
 
     @Override
     public List<Personaje> getByAge(Integer edad) {
-        return charactersRepo.getByAge(edad);
+        List<Personaje> p = charactersRepo.getByAge(edad);
+        return p;
     }
 
     @Override
     public List<Personaje> getByMovie(Long id) {
-        return charactersRepo.getByMovie(id);
+        List<Personaje> p = charactersRepo.getByMovie(id);
+        return p;
     }
 
     @Override
-    public void addMovieToCharacter(String nombre, String titulo) {
+    public void addCharacterToMovie(String nombre, String titulo) {
         Personaje p = charactersRepo.getByName(nombre);
         Pelicula_Serie peli = movieRepo.getByTitulo(titulo);
-        if (p != null && peli != null) {
-            p.getListPersonajePeli().add(peli);
-        } else {
-            throw new NullPointerException("EL PERSONAJE Y/O LA PELÍCULA NO ESTÁN REGISTRADOS!!!");
-        }
+        p.getPeliculas_series().add(peli);
     }
 }
