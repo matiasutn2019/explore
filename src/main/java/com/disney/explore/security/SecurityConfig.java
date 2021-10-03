@@ -16,7 +16,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.*;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
@@ -42,7 +42,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests().antMatchers("/auth/register/**").permitAll()
                 .antMatchers("/auth/login/**").permitAll()
-                .antMatchers(GET, "/characters/listado/**").hasAnyAuthority("ROLE_USER")
+                .antMatchers(GET, "/characters/listado/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
+                .antMatchers(GET, "/characters").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
+                .antMatchers(POST, "/characters/crear/**").hasAnyAuthority("ROLE_ADMIN")
+                .antMatchers(PUT, "/characters/editar/**").hasAnyAuthority("ROLE_ADMIN")
+                .antMatchers(DELETE, "/characters/eliminar/**").hasAnyAuthority("ROLE_ADMIN")
                 .antMatchers(GET, "/movies/**").hasAnyAuthority("ROLE_USER")
                 .and()
                 .authorizeRequests().anyRequest().authenticated()
