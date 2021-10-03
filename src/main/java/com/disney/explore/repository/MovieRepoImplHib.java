@@ -1,7 +1,6 @@
 package com.disney.explore.repository;
 
 import com.disney.explore.domain.Pelicula_Serie;
-import com.disney.explore.domain.Personaje;
 import com.disney.explore.dto.MovieDTO;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,9 +51,7 @@ public class MovieRepoImplHib implements MovieRepo {
         try {
             entityManager.remove(getById(pelicula_serie.getId()));
             entityManager.merge(pelicula_serie);
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -63,11 +60,12 @@ public class MovieRepoImplHib implements MovieRepo {
     public Pelicula_Serie getByTitulo(String titulo) {
         try {
             String query = "select new com.disney.explore.domain.Pelicula_Serie(p.id, p.image, p.titulo, p.fecha_creacion, p.calificacion) from Pelicula_Serie p where p.titulo = :titulo";
-            List<Pelicula_Serie> p = entityManager.createQuery(query)
+            List<Pelicula_Serie> p = entityManager.createQuery(query, Pelicula_Serie.class)
                     .setParameter("titulo", titulo)
                     .getResultList();
-            return p.get(0);
-        } catch (NullPointerException e) {
+            if (!p.isEmpty())
+                return p.get(0);
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return new Pelicula_Serie();
@@ -81,8 +79,9 @@ public class MovieRepoImplHib implements MovieRepo {
             List<Pelicula_Serie> p = entityManager.createQuery(query, Pelicula_Serie.class)
                     .setParameter("id", id)
                     .getResultList();
-            return p;
-        } catch (NullPointerException e) {
+            if (!p.isEmpty())
+                return p;
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return new ArrayList<Pelicula_Serie>();
@@ -92,8 +91,9 @@ public class MovieRepoImplHib implements MovieRepo {
     public Pelicula_Serie getById(Long id) {
         try {
             Pelicula_Serie p = entityManager.find(Pelicula_Serie.class, id);
-            return p;
-        } catch (NullPointerException e) {
+            if (p != null)
+                return p;
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return new Pelicula_Serie();

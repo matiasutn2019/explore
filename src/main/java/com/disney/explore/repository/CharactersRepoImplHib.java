@@ -21,7 +21,7 @@ public class CharactersRepoImplHib implements CharactersRepo {
         try {
             String query = "select new com.disney.explore.dto.PersonajeDTO(p.id, p.image, p.nombre) from Personaje p";
             return entityManager.createQuery(query, PersonajeDTO.class).getResultList();
-        } catch (NullPointerException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return new ArrayList<PersonajeDTO>();
@@ -50,9 +50,7 @@ public class CharactersRepoImplHib implements CharactersRepo {
         try {
             entityManager.remove(getById(personaje.getId()));
             entityManager.merge(personaje);
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -64,8 +62,9 @@ public class CharactersRepoImplHib implements CharactersRepo {
             List<Personaje> p = entityManager.createQuery(query, Personaje.class)
                     .setParameter("name", nombre)
                     .getResultList();
-            return p.get(0);
-        } catch (NullPointerException e) {
+            if (!p.isEmpty())
+                return p.get(0);
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return new Personaje();
@@ -78,8 +77,9 @@ public class CharactersRepoImplHib implements CharactersRepo {
             List<Personaje> p = entityManager.createQuery(query, Personaje.class)
                     .setParameter("edad", edad)
                     .getResultList();
-            return p;
-        } catch (NullPointerException e) {
+            if (!p.isEmpty())
+                return p;
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return new ArrayList<Personaje>();
@@ -93,8 +93,9 @@ public class CharactersRepoImplHib implements CharactersRepo {
             List<Personaje> p = entityManager.createQuery(query, Personaje.class)
                     .setParameter("id", id)
                     .getResultList();
-            return p;
-        } catch (NullPointerException e) {
+            if (!p.isEmpty())
+                return p;
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return new ArrayList<Personaje>();
@@ -104,8 +105,9 @@ public class CharactersRepoImplHib implements CharactersRepo {
     public Personaje getById(Long id) {
         try {
             Personaje p = entityManager.find(Personaje.class, id);
-            return p;
-        } catch (NullPointerException e) {
+            if (p != null)
+                return p;
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return new Personaje();

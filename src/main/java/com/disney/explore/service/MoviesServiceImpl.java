@@ -1,7 +1,9 @@
 package com.disney.explore.service;
 
+import com.disney.explore.domain.Genero;
 import com.disney.explore.domain.Pelicula_Serie;
 import com.disney.explore.dto.MovieDTO;
+import com.disney.explore.repository.GeneroRepo;
 import com.disney.explore.repository.MovieRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,7 @@ import java.util.List;
 public class MoviesServiceImpl implements MoviesService {
 
     private final MovieRepo movieRepo;
+    private final GeneroRepo generoRepo;
 
     @Override
     public List<MovieDTO> getMovieDTO() {
@@ -44,5 +47,12 @@ public class MoviesServiceImpl implements MoviesService {
     @Override
     public List<Pelicula_Serie> getByGenre(Long id) {
         return movieRepo.getByIdGenero(id);
+    }
+
+    @Override
+    public void addGenreToMovie(String titulo, String nombreGenero) {
+        Pelicula_Serie p = movieRepo.getByTitulo(titulo);
+        Genero g = generoRepo.findByNombre(nombreGenero);
+        p.getGeneros().add(g);
     }
 }

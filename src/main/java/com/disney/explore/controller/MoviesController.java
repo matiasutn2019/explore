@@ -47,4 +47,5 @@ public class MoviesController {
     public ResponseEntity<List<Pelicula_Serie>> getByGenre(@PathVariable Long id) {
         return ResponseEntity.ok().body(moviesService.getByGenre(id));
     }
+
 }

@@ -1,7 +1,6 @@
 package com.disney.explore.repository;
 
 import com.disney.explore.domain.Genero;
-import com.disney.explore.domain.Personaje;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
