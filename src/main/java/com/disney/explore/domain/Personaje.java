@@ -35,4 +35,13 @@ public class Personaje {
         this.historia = historia;
         this.peliculas_series = peliculas_series;
     }
+
+    public Personaje(Long id, String image, String nombre, Integer edad, Double peso, String historia) {
+        this.id = id;
+        this.image = image;
+        this.nombre = nombre;
+        this.edad = edad;
+        this.peso = peso;
+        this.historia = historia;
+    }
 }
