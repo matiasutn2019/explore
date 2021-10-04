@@ -1,11 +1,19 @@
 package com.disney.explore;
 
+import com.disney.explore.controller.UserController;
 import com.disney.explore.domain.*;
 import com.disney.explore.repository.GeneroRepo;
 import com.disney.explore.repository.MovieRepo;
 import com.disney.explore.service.CharactersService;
 import com.disney.explore.service.MoviesService;
 import com.disney.explore.service.UserService;
+import com.sendgrid.Method;
+import com.sendgrid.Request;
+import com.sendgrid.Response;
+import com.sendgrid.SendGrid;
+import com.sendgrid.helpers.mail.Mail;
+import com.sendgrid.helpers.mail.objects.Content;
+import com.sendgrid.helpers.mail.objects.Email;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,13 +21,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
 @SpringBootApplication
 public class ExploreApplication {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		SpringApplication.run(ExploreApplication.class, args);
 	}
 
@@ -34,10 +43,10 @@ public class ExploreApplication {
 			userService.saveRole(new Role("ROLE_USER"));
 			userService.saveRole(new Role("ROLE_ADMIN"));
 
-			userService.registerUser(new AppUser("juan", "123", new ArrayList<>()));
+			userService.registrarUser(new AppUser("juan", "123", "matiasunr@yahoo.com.ar", new ArrayList<>()));
 			userService.addRoleToUser("juan", "ROLE_USER");
 
-			userService.registerUser(new AppUser("maria", "777", new ArrayList<>()));
+			userService.registrarUser(new AppUser("maria", "777", "mcevini@frro.utn.edu.ar", new ArrayList<>()));
 			userService.addRoleToUser("maria", "ROLE_ADMIN");
 
 			Pelicula_Serie p1 = new Pelicula_Serie("imagen juan", "el juan y el pato", new Date(10/10/10), 5, new ArrayList<>());

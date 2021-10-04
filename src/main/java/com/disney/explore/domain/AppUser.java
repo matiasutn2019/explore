@@ -7,26 +7,21 @@ import java.util.Collection;
 @Entity
 public class AppUser {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String username;
     private String password;
+    private String email;
     @ManyToMany(fetch = FetchType.EAGER)
     private Collection<Role> roles = new ArrayList<>();
 
     public AppUser() {
     }
 
-    public AppUser(String username, String password, Collection<Role> roles) {
+    public AppUser(String username, String password, String email, Collection<Role> roles) {
         this.username = username;
         this.password = password;
-        this.roles = roles;
-    }
-
-    public AppUser(Long id, String username, String password, Collection<Role> roles) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
+        this.email = email;
         this.roles = roles;
     }
 
@@ -52,6 +47,14 @@ public class AppUser {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Collection<Role> getRoles() {

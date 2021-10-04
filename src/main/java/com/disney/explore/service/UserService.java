@@ -7,5 +7,5 @@ public interface UserService {
     AppUser findUserByUsername(String username);
     Role saveRole(Role role);
     void addRoleToUser(String username, String roleName);
-    void registerUser(AppUser user);
+    void registrarUser(AppUser user);
 }

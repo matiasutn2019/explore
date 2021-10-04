@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public void registerUser(AppUser user) {
+    public void registrarUser(AppUser user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepo.registerUser(user);
     }
