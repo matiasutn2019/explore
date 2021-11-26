@@ -1,5 +1,6 @@
 package com.disney.explore.domain.response;
 
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,9 +10,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CharacterResponse {
+public class MovieResponseList {
 
-    private String image;
-    private String nombre;
+  List<MovieResponse> movieResponseList;
 
 }

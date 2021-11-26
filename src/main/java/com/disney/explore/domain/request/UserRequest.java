@@ -1,4 +1,4 @@
-package com.disney.explore.domain.response;
+package com.disney.explore.domain.request;
 
 import com.disney.explore.domain.entity.Role;
 import java.util.List;
@@ -9,11 +9,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class UserResponse {
-
-  private Long id;
+@NoArgsConstructor
+public class UserRequest {
   private String email;
   private String password;
   private List<Role> roles;

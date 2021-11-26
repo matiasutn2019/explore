@@ -30,7 +30,7 @@ public class EmailHelper {
       if (!(response.getStatusCode() >= 200 || response.getStatusCode() < 300)) {
         throw new IOException("The email has not sent");
       }
-      
+
     } catch (IOException e) {
       throw new IOException(e.getMessage(), e);
     }

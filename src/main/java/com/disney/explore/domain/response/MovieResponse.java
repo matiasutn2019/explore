@@ -1,16 +1,17 @@
 package com.disney.explore.domain.response;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.util.Date;
-
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class MovieResponse {
+
     private String image;
     private String titulo;
-    private Date fecha_creacion;
+    private String fechaCreacion;
 }
