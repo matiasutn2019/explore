@@ -1,16 +1,15 @@
-package com.disney.explore.dto;
+package com.disney.explore.domain.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MovieDTO {
+public class CharacterResponse {
+
+    private Long id;
     private String image;
-    private String titulo;
-    private Date fecha_creacion;
+    private String nombre;
 }

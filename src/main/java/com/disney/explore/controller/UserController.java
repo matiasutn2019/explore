@@ -1,7 +1,7 @@
 package com.disney.explore.controller;
 
-import com.disney.explore.domain.AppUser;
-import com.disney.explore.domain.Role;
+import com.disney.explore.domain.entity.User;
+import com.disney.explore.domain.entity.Role;
 import com.disney.explore.service.UserService;
 import com.sendgrid.Method;
 import com.sendgrid.Request;
@@ -29,7 +29,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<AppUser> registrarUser(@RequestBody AppUser user) throws IOException {
+    public ResponseEntity<User> registrarUser(@RequestBody User user) throws IOException {
         userService.registrarUser(user);
         sendMail(user.getEmail());
         return ResponseEntity.ok().build();

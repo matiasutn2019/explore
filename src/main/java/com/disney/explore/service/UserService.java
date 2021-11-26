@@ -1,11 +1,12 @@
 package com.disney.explore.service;
 
-import com.disney.explore.domain.AppUser;
-import com.disney.explore.domain.Role;
+import com.disney.explore.domain.entity.User;
+import com.disney.explore.domain.entity.Role;
+import com.disney.explore.domain.response.UserResponse;
 
 public interface UserService {
-    AppUser findUserByUsername(String username);
+    User findUserByUsername(String username);
     Role saveRole(Role role);
     void addRoleToUser(String username, String roleName);
-    void registrarUser(AppUser user);
+    UserResponse registrarUser(User user);
 }

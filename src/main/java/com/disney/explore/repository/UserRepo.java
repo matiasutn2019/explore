@@ -1,8 +1,7 @@
 package com.disney.explore.repository;
 
-import com.disney.explore.domain.AppUser;
+import com.disney.explore.domain.entity.User;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepo {
-    void registerUser(AppUser user);
-    AppUser findByUsername(String username);
+public interface UserRepo extends JpaRepository<User, Long> {
 }

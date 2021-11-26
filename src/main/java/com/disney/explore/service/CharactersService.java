@@ -1,17 +1,17 @@
 package com.disney.explore.service;
 
-import com.disney.explore.domain.Personaje;
-import com.disney.explore.dto.PersonajeDTO;
+import com.disney.explore.domain.entity.Character;
+import com.disney.explore.domain.response.CharacterResponse;
 
 import java.util.List;
 
-public interface CharactersService {
+public interface CharacterService {
 
-    List<PersonajeDTO> getCharDTO();
-    void save(Personaje personaje);
+    List<CharacterResponse> getCharDTO();
+    CharacterResponse save(Character personaje);
     void delete(Long id);
-    void update(Personaje personaje);
-    Personaje getByName(String nombre);
-    List<Personaje> getByAge(Integer edad);
-    List<Personaje> getByMovie(Long id);
+    CharacterResponse update(Character personaje);
+    CharacterResponse getByName(String nombre);
+    List<CharacterResponse> getByAge(Integer edad);
+    List<CharacterResponse> getByMovie(Long id);
 }

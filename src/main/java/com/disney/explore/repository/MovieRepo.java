@@ -1,16 +1,7 @@
 package com.disney.explore.repository;
 
-import com.disney.explore.domain.Pelicula_Serie;
-import com.disney.explore.dto.MovieDTO;
+import com.disney.explore.domain.entity.Movie;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
-
-public interface MovieRepo {
-    List<MovieDTO> findAllDTO();
-    void save(Pelicula_Serie pelicula_serie);
-    void delete(Long id);
-    void update(Pelicula_Serie pelicula_serie);
-    Pelicula_Serie getByTitulo(String titulo);
-    List<Pelicula_Serie> getByIdGenero(Long id);
-    Pelicula_Serie getById(Long id);
+public interface MovieRepo extends JpaRepository<Movie, Long> {
 }

@@ -1,20 +1,20 @@
 package com.disney.explore.service;
 
-import com.disney.explore.domain.Pelicula_Serie;
-import com.disney.explore.dto.MovieDTO;
+import com.disney.explore.domain.entity.Movie;
+import com.disney.explore.domain.response.MovieResponse;
 
 import java.util.List;
 
-public interface MoviesService {
-    List<MovieDTO> getMovieDTO();
+public interface MovieService {
+    List<MovieResponse> getMovieDTO();
 
-    void save(Pelicula_Serie pelicula);
+    MovieResponse save(Movie pelicula);
 
-    void update(Pelicula_Serie pelicula);
+    MovieResponse update(Movie pelicula);
 
     void delete(Long id);
 
-    Pelicula_Serie getByName(String name);
+    MovieResponse getByName(String name);
 
-    List<Pelicula_Serie> getByGenre(Long id);
+    List<MovieResponse> getByGenre(Long id);
 }

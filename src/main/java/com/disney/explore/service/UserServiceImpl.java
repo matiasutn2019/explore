@@ -1,12 +1,11 @@
 package com.disney.explore.service;
 
-import com.disney.explore.domain.AppUser;
-import com.disney.explore.domain.Role;
+import com.disney.explore.domain.entity.User;
+import com.disney.explore.domain.entity.Role;
 import com.disney.explore.repository.RoleRepo;
 import com.disney.explore.repository.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -27,14 +26,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public void registrarUser(AppUser user) {
+    public void registrarUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepo.registerUser(user);
     }
 
     @Override
-    public AppUser findUserByUsername(String username) {
-        AppUser userFound = userRepo.findByUsername(username);
+    public User findUserByUsername(String username) {
+        User userFound = userRepo.findByUsername(username);
         return userFound;
     }
 
@@ -45,14 +44,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public void addRoleToUser(String username, String roleName) {
-        AppUser user = userRepo.findByUsername(username);
+        User user = userRepo.findByUsername(username);
         Role role = roleRepo.findByName(roleName);
         user.getRoles().add(role);
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        AppUser user = userRepo.findByUsername(username);
+        User user = userRepo.findByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException("User not found in the database");
         }
@@ -60,6 +59,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         user.getRoles().forEach(role -> {
             authorities.add(new SimpleGrantedAuthority(role.getName()));
         });
-        return new User(user.getUsername(), user.getPassword(), authorities);
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
     }
 }

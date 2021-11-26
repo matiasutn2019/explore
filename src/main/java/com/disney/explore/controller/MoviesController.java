@@ -1,7 +1,7 @@
 package com.disney.explore.controller;
 
-import com.disney.explore.domain.Pelicula_Serie;
-import com.disney.explore.dto.MovieDTO;
+import com.disney.explore.domain.entity.Movie;
+import com.disney.explore.domain.response.MovieResponse;
 import com.disney.explore.service.MoviesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,18 +17,18 @@ public class MoviesController {
     private final MoviesService moviesService;
 
     @GetMapping("/listado")
-    public ResponseEntity<List<MovieDTO>> listCharacters() {
+    public ResponseEntity<List<MovieResponse>> listCharacters() {
         return ResponseEntity.ok().body(moviesService.getMovieDTO());
     }
 
     @PostMapping("/crear")
-    public ResponseEntity<Pelicula_Serie> createCharacter(@RequestBody Pelicula_Serie pelicula) {
+    public ResponseEntity<Movie> createCharacter(@RequestBody Movie pelicula) {
         moviesService.save(pelicula);
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/editar")
-    public ResponseEntity<Pelicula_Serie> updateCharacter(@RequestBody Pelicula_Serie pelicula) {
+    public ResponseEntity<Movie> updateCharacter(@RequestBody Movie pelicula) {
         moviesService.update(pelicula);
         return ResponseEntity.ok().build();
     }
@@ -39,12 +39,12 @@ public class MoviesController {
         return ResponseEntity.ok().build();
     }
     @GetMapping("/byname/{name}")
-    public ResponseEntity<Pelicula_Serie> getByName(@PathVariable String name) {
+    public ResponseEntity<Movie> getByName(@PathVariable String name) {
         return ResponseEntity.ok().body(moviesService.getByName(name));
     }
 
     @GetMapping("/bygenre/{id}")
-    public ResponseEntity<List<Pelicula_Serie>> getByGenre(@PathVariable Long id) {
+    public ResponseEntity<List<Movie>> getByGenre(@PathVariable Long id) {
         return ResponseEntity.ok().body(moviesService.getByGenre(id));
     }
 

@@ -1,9 +1,8 @@
 package com.disney.explore.controller;
 
-import com.disney.explore.domain.Personaje;
-import com.disney.explore.dto.PersonajeDTO;
+import com.disney.explore.domain.entity.Character;
+import com.disney.explore.domain.response.CharacterResponse;
 import com.disney.explore.service.CharactersService;
-import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,18 +17,18 @@ public class CharactersController {
     private final CharactersService charactersService;
 
     @GetMapping("/listado")
-    public ResponseEntity<List<PersonajeDTO>> listCharacters() {
+    public ResponseEntity<List<CharacterResponse>> listCharacters() {
         return ResponseEntity.ok().body(charactersService.getCharDTO());
     }
 
     @PostMapping("/crear")
-    public ResponseEntity<Personaje> createCharacter(@RequestBody Personaje personaje) {
+    public ResponseEntity<Character> createCharacter(@RequestBody Character personaje) {
         charactersService.save(personaje);
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/editar")
-    public ResponseEntity<Personaje> updateCharacter(@RequestBody Personaje personaje) {
+    public ResponseEntity<Character> updateCharacter(@RequestBody Character personaje) {
         charactersService.update(personaje);
         return ResponseEntity.ok().build();
     }
@@ -40,17 +39,17 @@ public class CharactersController {
         return ResponseEntity.ok().build();
     }
     @GetMapping("/byname/{name}")
-    public ResponseEntity<Personaje> getByName(@PathVariable String name) {
+    public ResponseEntity<Character> getByName(@PathVariable String name) {
         return ResponseEntity.ok().body(charactersService.getByName(name));
     }
 
     @GetMapping("/byage/{age}")
-    public ResponseEntity<List<Personaje>> getByAge(@PathVariable Integer age) {
+    public ResponseEntity<List<Character>> getByAge(@PathVariable Integer age) {
         return ResponseEntity.ok().body(charactersService.getByAge(age));
     }
 
     @GetMapping("/bymovie/{movieId}")
-    public ResponseEntity<List<Personaje>> getByMovies(@PathVariable Long movieId) {
+    public ResponseEntity<List<Character>> getByMovies(@PathVariable Long movieId) {
         return ResponseEntity.ok().body(charactersService.getByMovie(movieId));
     }
 }

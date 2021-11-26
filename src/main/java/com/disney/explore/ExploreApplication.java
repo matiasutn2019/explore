@@ -1,37 +1,15 @@
 package com.disney.explore;
 
-import com.disney.explore.controller.UserController;
-import com.disney.explore.domain.*;
-import com.disney.explore.repository.GeneroRepo;
-import com.disney.explore.repository.MovieRepo;
-import com.disney.explore.service.CharactersService;
-import com.disney.explore.service.MoviesService;
-import com.disney.explore.service.UserService;
-import com.sendgrid.Method;
-import com.sendgrid.Request;
-import com.sendgrid.Response;
-import com.sendgrid.SendGrid;
-import com.sendgrid.helpers.mail.Mail;
-import com.sendgrid.helpers.mail.objects.Content;
-import com.sendgrid.helpers.mail.objects.Email;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
 
 @SpringBootApplication
 public class ExploreApplication {
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 		SpringApplication.run(ExploreApplication.class, args);
 	}
-
+/*
 	@Bean
 	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
@@ -43,21 +21,21 @@ public class ExploreApplication {
 			userService.saveRole(new Role("ROLE_USER"));
 			userService.saveRole(new Role("ROLE_ADMIN"));
 
-			userService.registrarUser(new AppUser("juan", "123", "matiasunr@yahoo.com.ar", new ArrayList<>()));
+			userService.registrarUser(new User("juan", "123", "matiasunr@yahoo.com.ar", new ArrayList<>()));
 			userService.addRoleToUser("juan", "ROLE_USER");
 
-			userService.registrarUser(new AppUser("maria", "777", "mcevini@frro.utn.edu.ar", new ArrayList<>()));
+			userService.registrarUser(new User("maria", "777", "mcevini@frro.utn.edu.ar", new ArrayList<>()));
 			userService.addRoleToUser("maria", "ROLE_ADMIN");
 
-			Pelicula_Serie p1 = new Pelicula_Serie("imagen juan", "el juan y el pato", new Date(10/10/10), 5, new ArrayList<>());
-			Pelicula_Serie p2 = new Pelicula_Serie("imagen juan", "el juan y el raton", new Date(10/10/10), 4, new ArrayList<>());
-			Pelicula_Serie p3 = new Pelicula_Serie("imagen juan", "el juan y el perro", new Date(10/10/10), 3, new ArrayList<>());
-			Pelicula_Serie p4 = new Pelicula_Serie("imagen miguel", "el miguel y el raton", new Date(10/10/10), 2, new ArrayList<>());
-			Pelicula_Serie p5 = new Pelicula_Serie("imagen jose", "el jose y el pato y el perro", new Date(10/10/10), 1, new ArrayList<>());
+			Movie p1 = new Movie("imagen juan", "el juan y el pato", new Date(10/10/10), 5, new ArrayList<>());
+			Movie p2 = new Movie("imagen juan", "el juan y el raton", new Date(10/10/10), 4, new ArrayList<>());
+			Movie p3 = new Movie("imagen juan", "el juan y el perro", new Date(10/10/10), 3, new ArrayList<>());
+			Movie p4 = new Movie("imagen miguel", "el miguel y el raton", new Date(10/10/10), 2, new ArrayList<>());
+			Movie p5 = new Movie("imagen jose", "el jose y el pato y el perro", new Date(10/10/10), 1, new ArrayList<>());
 
-			Personaje pj1 = new Personaje("imagen pato", "pato donald", 99, 15.0, "personaje pato creado hace muchos años", new ArrayList<>());
-			Personaje pj2 = new Personaje("imagen raton", "raton mickey", 88, 5.0, "personaje raton creado hace muchos años", new ArrayList<>());
-			Personaje pj3 = new Personaje("imagen perro", "perro pluto", 77, 30.0, "personaje perro creado hace muchos años", new ArrayList<>());
+			Character pj1 = new Character("imagen pato", "pato donald", 99, 15.0, "personaje pato creado hace muchos años", new ArrayList<>());
+			Character pj2 = new Character("imagen raton", "raton mickey", 88, 5.0, "personaje raton creado hace muchos años", new ArrayList<>());
+			Character pj3 = new Character("imagen perro", "perro pluto", 77, 30.0, "personaje perro creado hace muchos años", new ArrayList<>());
 
 			Genero g1 = new Genero("terror", "imagen terror");
 			Genero g2 = new Genero("comedia", "imagen comedia");
@@ -101,4 +79,6 @@ public class ExploreApplication {
 
 		};
 	}
+
+ */
 }
