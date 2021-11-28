@@ -11,7 +11,7 @@ public interface IMovieService {
 
   MovieResponseDetail create(MovieRequest movieRequest);
 
-  MovieResponseDetail update(MovieRequest movieRequest);
+  MovieResponseDetail update(long id, MovieRequest movieRequest);
 
   void delete(long id);
 

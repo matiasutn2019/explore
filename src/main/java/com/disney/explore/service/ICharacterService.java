@@ -11,7 +11,7 @@ public interface ICharacterService {
 
   CharacterResponseDetail create(CharacterRequest character);
 
-  CharacterResponseDetail update(CharacterRequest character);
+  CharacterResponseDetail update(long id, CharacterRequest character);
 
   void delete(long id);
 

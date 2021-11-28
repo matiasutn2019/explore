@@ -1,7 +1,6 @@
 package com.disney.explore.domain.entity;
 
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.persistence.*;
 import java.util.Collection;
 import lombok.AccessLevel;
@@ -33,15 +32,13 @@ public class User implements UserDetails {
     @Column(name = "PASSWORD", nullable = false)
     private String password;
 
-    @JoinColumn(name = "ROLES_ID")
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    private List<Role> roles;
+    @ManyToOne
+    @JoinColumn(name = "ROLE_ID")
+    private Role role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.getRoles().stream()
-            .map(role -> new SimpleGrantedAuthority(role.getName()))
-            .collect(Collectors.toList());
+        return List.of(new SimpleGrantedAuthority(role.getName()));
     }
 
     @Override

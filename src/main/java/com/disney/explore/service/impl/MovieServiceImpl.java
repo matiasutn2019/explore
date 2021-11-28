@@ -11,6 +11,8 @@ import com.disney.explore.repository.IMovieRepo;
 import com.disney.explore.service.IMovieService;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,8 +43,19 @@ public class MovieServiceImpl implements IMovieService {
 
     @Override
     @Transactional
-    public MovieResponseDetail update(MovieRequest movieRequest) {
-        Movie movie = buildMovie(movieRequest);
+    public MovieResponseDetail update(long id, MovieRequest movieRequest) {
+        Optional<Movie> movieOptional = movieRepo.findById(id);
+        if (movieOptional.isEmpty()) {
+            throw new EntityNotFoundException("Movie not found");
+        }
+        Movie movie = movieOptional.get();
+        movie.setImage(movieRequest.getImage());
+        movie.setTitulo(movieRequest.getTitulo());
+        movie.setFechaCreacion(movieRequest.getFechaCreacion());
+        movie.setCalificacion(movieRequest.getCalificacion());
+        List<Genre> generos = new ArrayList<>();
+        movieRequest.getGeneros().forEach(genre -> generos.add(genre));
+        movie.setGeneros(generos);
         movieRepo.save(movie);
         return convertUtils.toMovieResponseDetail(movie);
     }

@@ -13,12 +13,12 @@ public class ExploreApplication {
 		SpringApplication.run(ExploreApplication.class, args);
 	}
 
+
 	@Bean
 	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-
-/*
+	/*
 	@Bean
 	CommandLineRunner run(UserService userService, CharactersService charactersService, MoviesService moviesService, GeneroRepo generoRepo) {
 		return args -> {

@@ -11,6 +11,8 @@ import com.disney.explore.repository.ICharacterRepo;
 import com.disney.explore.service.ICharacterService;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,8 +43,20 @@ public class CharacterServiceImpl implements ICharacterService {
 
     @Override
     @Transactional
-    public CharacterResponseDetail update(CharacterRequest characterRequest) {
-        Character character = buildCharacter(characterRequest);
+    public CharacterResponseDetail update(long id, CharacterRequest characterRequest) {
+        Optional<Character> characterOptional = characterRepo.findById(id);
+        if (characterOptional.isEmpty()) {
+            throw new EntityNotFoundException("Character not found");
+        }
+        Character character = characterOptional.get();
+        character.setImage(characterRequest.getImage());
+        character.setNombre(characterRequest.getNombre());
+        character.setEdad(characterRequest.getEdad());
+        character.setPeso(characterRequest.getPeso());
+        character.setHistoria(characterRequest.getHistoria());
+        List<Movie> peliculas = new ArrayList<>();
+        characterRequest.getPeliculas().forEach(movie -> peliculas.add(movie));
+        character.setPeliculas(peliculas);
         characterRepo.save(character);
         return convertUtils.toCharacterResponseDetail(character);
     }
