@@ -1,15 +1,17 @@
 package com.disney.explore.service.impl;
 
-import com.disney.explore.common.EmailHelper;
 import com.disney.explore.common.RoleEnum;
 import com.disney.explore.common.converter.ConvertUtils;
 import com.disney.explore.domain.entity.User;
 import com.disney.explore.domain.entity.Role;
 import com.disney.explore.domain.request.UserRegisterRequest;
-import com.disney.explore.domain.response.UserResponse;
+import com.disney.explore.domain.response.UserAuthenticatedResponse;
 import com.disney.explore.repository.IUserRepo;
+import com.disney.explore.service.IRoleService;
 import com.disney.explore.service.IUserService;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -31,13 +33,20 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
     @Autowired
     private ConvertUtils convertUtils;
 
+    @Autowired
+    private IRoleService roleService;
+
     /*
     @Autowired
     private EmailHelper emailHelper;
     */
 
     @Override
-    public UserResponse create(UserRegisterRequest userRegisterRequest) throws IOException {
+    public UserAuthenticatedResponse create(UserRegisterRequest userRegisterRequest)
+        throws Exception {
+        if(userRepo.findByUsername(userRegisterRequest.getEmail()) != null) {
+            throw new Exception("User already registered!!!");
+        }
         User user = buildUser(userRegisterRequest);
         userRepo.save(user);
         sendEmail(userRegisterRequest.getEmail());
@@ -57,9 +66,9 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
         User user = new User();
         user.setEmail(userRegisterRequest.getEmail());
         user.setPassword(bCryptPasswordEncoder.encode(userRegisterRequest.getPassword()));
-        Role role = new Role();
-        role.setName(RoleEnum.USER.getRoleName());
-        user.setRole(role);
+        List<Role> roles = new ArrayList<>();
+        roles.add(roleService.findBy(RoleEnum.USER.getRoleName()));
+        user.setRoles(roles);
         return user;
     }
 

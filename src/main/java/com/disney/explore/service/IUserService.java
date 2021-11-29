@@ -1,11 +1,12 @@
 package com.disney.explore.service;
 
 import com.disney.explore.domain.request.UserRegisterRequest;
-import com.disney.explore.domain.response.UserResponse;
-import java.io.IOException;
+import com.disney.explore.domain.response.UserAuthenticatedResponse;
+import org.springframework.security.core.userdetails.UserDetails;
 
 public interface IUserService {
 
-  public UserResponse create(UserRegisterRequest userRequest) throws IOException;
+    public UserAuthenticatedResponse create(UserRegisterRequest userRequest) throws Exception;
 
+        UserDetails loadUserByUsername(String email);
 }

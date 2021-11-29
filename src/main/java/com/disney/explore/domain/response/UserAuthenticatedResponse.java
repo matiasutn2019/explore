@@ -1,6 +1,5 @@
 package com.disney.explore.domain.response;
 
-import com.disney.explore.domain.entity.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,11 +9,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserResponse {
+public class UserAuthenticatedResponse {
 
   private Long id;
   private String email;
-  private String password;
-  private Role role;
+  private String token;
 
 }

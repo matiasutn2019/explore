@@ -21,7 +21,6 @@ public class CharacterController {
 
     @GetMapping(
         value = "/characters",
-        consumes = MediaType.APPLICATION_JSON_VALUE,
         produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CharacterResponseList> findAll() {
         return new ResponseEntity<>(characterService.findAll(), HttpStatus.OK);
