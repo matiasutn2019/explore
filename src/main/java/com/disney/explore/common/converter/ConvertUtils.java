@@ -20,14 +20,17 @@ import org.springframework.stereotype.Component;
 public class ConvertUtils {
 
   public UserAuthenticatedResponse toUserAuthenticatedResponse(String email, String token) {
-    UserAuthenticatedResponse userAuthenticatedResponse = new UserAuthenticatedResponse();
-    userAuthenticatedResponse.setEmail(email);
-    userAuthenticatedResponse.setToken(token);
-    return userAuthenticatedResponse;
+      UserAuthenticatedResponse userAuthenticatedResponse = new UserAuthenticatedResponse();
+      userAuthenticatedResponse.setEmail(email);
+      userAuthenticatedResponse.setToken(token);
+      return userAuthenticatedResponse;
   }
 
   public UserCreatedResponse toUserCreatedResponse(User user) {
-    return null;
+      UserCreatedResponse userCreatedResponse = new UserCreatedResponse();
+      userCreatedResponse.setId(user.getId());
+      userCreatedResponse.setEmail(user.getEmail());
+      return userCreatedResponse;
   }
 
   private CharacterResponse toCharacterResponse(Character character) {
