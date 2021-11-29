@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class JwtService {
 
+    private static final String BEARER_TOKEN = "Bearer %s";
     private static final int EXPIRATION_TIME = 1000*60*60;
     private static final String AUTHORITIES = "authorities";
     private final String SECRET_KEY;
@@ -25,12 +26,13 @@ public class JwtService {
     public String createToken(UserDetails userDetails) {
         String username = userDetails.getUsername();
         Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
-        return Jwts.builder()
+        String token = Jwts.builder()
             .setSubject(username)
             .claim(AUTHORITIES, authorities)
             .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
             .signWith(SignatureAlgorithm.HS512, SECRET_KEY)
             .compact();
+        return String.format(BEARER_TOKEN, token);
     }
 
     public Boolean hasTokenExpired(String token) {

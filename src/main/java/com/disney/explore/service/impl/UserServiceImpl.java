@@ -3,16 +3,18 @@ package com.disney.explore.service.impl;
 import com.disney.explore.common.RoleEnum;
 import com.disney.explore.common.converter.ConvertUtils;
 import com.disney.explore.domain.entity.User;
-import com.disney.explore.domain.entity.Role;
+import com.disney.explore.domain.request.UserLoginRequest;
 import com.disney.explore.domain.request.UserRegisterRequest;
 import com.disney.explore.domain.response.UserAuthenticatedResponse;
+import com.disney.explore.domain.response.UserCreatedResponse;
 import com.disney.explore.repository.IUserRepo;
-import com.disney.explore.service.IRoleService;
+import com.disney.explore.security.JwtService;
 import com.disney.explore.service.IUserService;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -34,7 +36,10 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
     private ConvertUtils convertUtils;
 
     @Autowired
-    private IRoleService roleService;
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private JwtService jwtService;
 
     /*
     @Autowired
@@ -42,7 +47,7 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
     */
 
     @Override
-    public UserAuthenticatedResponse create(UserRegisterRequest userRegisterRequest)
+    public UserCreatedResponse create(UserRegisterRequest userRegisterRequest)
         throws Exception {
         if(userRepo.findByUsername(userRegisterRequest.getEmail()) != null) {
             throw new Exception("User already registered!!!");
@@ -50,7 +55,7 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
         User user = buildUser(userRegisterRequest);
         userRepo.save(user);
         sendEmail(userRegisterRequest.getEmail());
-        return convertUtils.toUserResponse(user);
+        return convertUtils.toUserCreatedResponse(user);
     }
 
     @Override
@@ -66,13 +71,27 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
         User user = new User();
         user.setEmail(userRegisterRequest.getEmail());
         user.setPassword(bCryptPasswordEncoder.encode(userRegisterRequest.getPassword()));
-        List<Role> roles = new ArrayList<>();
-        roles.add(roleService.findBy(RoleEnum.USER.getRoleName()));
-        user.setRoles(roles);
+        user.setRole(RoleEnum.USER.getRoleName());
         return user;
+    }
+
+    @Override
+    public UserAuthenticatedResponse login(UserLoginRequest userLoginRequest) throws Exception {
+        try {
+            UsernamePasswordAuthenticationToken authentication =
+                new UsernamePasswordAuthenticationToken(userLoginRequest.getEmail(), userLoginRequest.getPassword());
+            authenticationManager.authenticate(authentication);
+        } catch (BadCredentialsException e) {
+            throw new Exception("Invalid username or password!!!", e);
+        }
+        UserDetails userDetails = loadUserByUsername(userLoginRequest.getEmail());
+        String token = jwtService.createToken(userDetails);
+
+        return convertUtils.toUserAuthenticatedResponse(userLoginRequest.getEmail(), token);
     }
 
     private void sendEmail(String email) throws IOException {
         //emailHelper.sendMail();
     }
+
 }

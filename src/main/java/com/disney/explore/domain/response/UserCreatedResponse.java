@@ -7,11 +7,12 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class UserAuthenticatedResponse {
+@NoArgsConstructor
+public class UserCreatedResponse {
 
-  private String email;
-  private String token;
+    private long id;
+    private String email;
+    private String password;
 
 }

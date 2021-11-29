@@ -12,13 +12,21 @@ import com.disney.explore.domain.response.MovieResponseDetailList;
 import com.disney.explore.domain.response.MovieResponseList;
 import com.disney.explore.domain.response.MovieResponse;
 import com.disney.explore.domain.response.UserAuthenticatedResponse;
+import com.disney.explore.domain.response.UserCreatedResponse;
 import java.util.List;
 import org.springframework.stereotype.Component;
 
 @Component("convertUtils")
 public class ConvertUtils {
 
-  public UserAuthenticatedResponse toUserResponse(User user) {
+  public UserAuthenticatedResponse toUserAuthenticatedResponse(String email, String token) {
+    UserAuthenticatedResponse userAuthenticatedResponse = new UserAuthenticatedResponse();
+    userAuthenticatedResponse.setEmail(email);
+    userAuthenticatedResponse.setToken(token);
+    return userAuthenticatedResponse;
+  }
+
+  public UserCreatedResponse toUserCreatedResponse(User user) {
     return null;
   }
 

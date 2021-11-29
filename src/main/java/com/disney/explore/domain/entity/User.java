@@ -1,7 +1,7 @@
 package com.disney.explore.domain.entity;
 
+import com.disney.explore.common.RoleEnum;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.persistence.*;
 import java.util.Collection;
 import lombok.AccessLevel;
@@ -24,7 +24,7 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE)
-    @Column(name = "USERS_ID")
+    @Column(name = "USER_ID")
     private Long id;
 
     @Column(name = "EMAIL", unique = true, nullable = false)
@@ -33,15 +33,12 @@ public class User implements UserDetails {
     @Column(name = "PASSWORD", nullable = false)
     private String password;
 
-    @JoinColumn(name = "ROLES_ID")
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    private List<Role> roles;
+    @Column(name = "USER_ROLE")
+    private String role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.getRoles().stream()
-            .map(role -> new SimpleGrantedAuthority(role.getName()))
-            .collect(Collectors.toList());
+        return List.of(new SimpleGrantedAuthority(RoleEnum.USER.getRoleName()));
     }
 
     @Override

@@ -1,4 +1,6 @@
-package com.disney.explore.common;
+package com.disney.explore.common.email;
+
+import com.disney.explore.common.email.IContent;
 
 public interface IEmail {
 

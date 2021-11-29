@@ -1,7 +1,7 @@
 package com.disney.explore.security;
 
-import com.disney.explore.filter.CustomAuthenticationFilter;
-import com.disney.explore.filter.CustomAuthorizationFilter;
+import com.disney.explore.common.RoleEnum;
+import com.disney.explore.filter.JwtAuthorizationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
@@ -27,6 +27,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
 
+    @Autowired
+    private JwtAuthorizationFilter jwtAuthorizationFilter;
+
     @Bean
     BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
@@ -45,31 +48,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean());
-        // customAuthenticationFilter.setFilterProcessesUrl("/auth/login");
         http
             .csrf()
             .disable()
-            .cors()
-            .and()
             .sessionManagement()
             .sessionCreationPolicy(STATELESS)
             .and()
             .authorizeRequests()
-            .antMatchers("/auth/register/**").permitAll()
-            .antMatchers("/auth/login/**").permitAll()
-            .antMatchers(GET, "/characters/**", "/movies/**").hasAnyRole("ROLE_USER")
-            .antMatchers(GET, "/characters**", "/movies**").hasAnyRole("ROLE_USER")
-            .antMatchers(POST, "/characters/**", "/movies/**").hasAnyRole("ROLE_USER")
-            .antMatchers(PUT, "/characters/**", "/movies/**").hasAnyRole("ROLE_USER")
-            .antMatchers(DELETE, "/characters/**", "/movies/**").hasAnyRole("ROLE_USER")
-            .and()
-            .authorizeRequests()
+            .antMatchers("/auth/register").permitAll()
+            .antMatchers("/auth/login").permitAll()
+            .antMatchers(GET, "/characters/**", "/movies/**").hasAuthority(RoleEnum.USER.getRoleName())
+            .antMatchers(GET, "/characters**", "/movies**").hasAuthority(RoleEnum.USER.getRoleName())
+            .antMatchers(POST, "/characters/**", "/movies/**").hasAuthority(RoleEnum.USER.getRoleName())
+            .antMatchers(PUT, "/characters/**", "/movies/**").hasAuthority(RoleEnum.USER.getRoleName())
+            .antMatchers(DELETE, "/characters/**", "/movies/**").hasAuthority(RoleEnum.USER.getRoleName())
             .anyRequest()
-            .authenticated();
-            // .and()
-            // .addFilter(customAuthenticationFilter)
-            // .addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
+            .authenticated()
+            .and()
+            .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
 }

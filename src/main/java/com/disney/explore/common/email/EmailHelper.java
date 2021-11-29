@@ -1,4 +1,4 @@
-package com.disney.explore.common;
+package com.disney.explore.common.email;
 
 import com.sendgrid.Method;
 import com.sendgrid.Request;
