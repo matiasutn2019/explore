@@ -2,8 +2,8 @@ package com.disney.explore.common.email;
 
 public interface IContent {
 
-  String getType();
+    String getType();
 
-  String getValue();
+    String getValue();
 
 }

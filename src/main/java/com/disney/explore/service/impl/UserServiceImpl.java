@@ -2,15 +2,17 @@ package com.disney.explore.service.impl;
 
 import com.disney.explore.common.RoleEnum;
 import com.disney.explore.common.converter.ConvertUtils;
+import com.disney.explore.common.email.EmailHelper;
+import com.disney.explore.common.email.template.RegisterTemplateEmail;
 import com.disney.explore.domain.entity.User;
 import com.disney.explore.domain.request.UserLoginRequest;
 import com.disney.explore.domain.request.UserRegisterRequest;
 import com.disney.explore.domain.response.UserAuthenticatedResponse;
 import com.disney.explore.domain.response.UserCreatedResponse;
+import com.disney.explore.exception.SendEmailException;
 import com.disney.explore.repository.IUserRepo;
 import com.disney.explore.security.JwtService;
 import com.disney.explore.service.IUserService;
-import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -41,10 +43,8 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
     @Autowired
     private JwtService jwtService;
 
-    /*
     @Autowired
     private EmailHelper emailHelper;
-    */
 
     @Override
     public UserCreatedResponse create(UserRegisterRequest userRegisterRequest)
@@ -90,8 +90,12 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
         return convertUtils.toUserAuthenticatedResponse(userLoginRequest.getEmail(), token);
     }
 
-    private void sendEmail(String email) throws IOException {
-        //emailHelper.sendMail();
+    private void sendEmail(String emailTo) {
+        try {
+            emailHelper.sendMail(new RegisterTemplateEmail(emailTo));
+        } catch (SendEmailException e) {
+        }
+
     }
 
 }

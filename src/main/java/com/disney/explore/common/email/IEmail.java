@@ -1,13 +1,11 @@
 package com.disney.explore.common.email;
 
-import com.disney.explore.common.email.IContent;
-
 public interface IEmail {
 
-  String getEmailTo();
+    String getEmailTo();
 
-  String getSubject();
+    String getSubject();
 
-  IContent getContent();
+    IContent getContent();
 
 }
