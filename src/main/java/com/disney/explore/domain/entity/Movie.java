@@ -35,8 +35,8 @@ public class Movie {
     @Column(name = "CALIFICACION")
     private Integer calificacion;
 
-    @JoinColumn(name = "GENRE_ID")
+    @JoinColumn(name = "CHARACTERS_ID")
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    private List<Genre> generos;
+    private List<Character> personajes;
 
 }

@@ -36,7 +36,7 @@ public class Character {
     @Column(name = "HISTORIA")
     private String historia;
 
-    @JoinColumn(name = "MOVIE_ID")
+    @JoinColumn(name = "MOVIES_ID")
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<Movie> peliculas;
 
