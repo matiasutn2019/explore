@@ -13,6 +13,5 @@ public class UserCreatedResponse {
 
     private long id;
     private String email;
-    private String password;
 
 }
