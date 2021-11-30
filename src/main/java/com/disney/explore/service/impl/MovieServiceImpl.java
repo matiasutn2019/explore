@@ -77,7 +77,7 @@ public class MovieServiceImpl implements IMovieService {
         movie.setTitulo(movieRequest.getTitulo());
         movie.setFechaCreacion(movieRequest.getFechaCreacion());
         movie.setCalificacion(movieRequest.getCalificacion());
-        movie.setGeneros(movieRequest.getGeneros());
+        movie.setPersonajes(movieRequest.getPersonajes());
         return movie;
     }
 
@@ -86,7 +86,7 @@ public class MovieServiceImpl implements IMovieService {
         movie.setTitulo(movieRequest.getTitulo());
         movie.setFechaCreacion(movieRequest.getFechaCreacion());
         movie.setCalificacion(movieRequest.getCalificacion());
-        movie.setGeneros(movieRequest.getGeneros());
+        movie.setPersonajes(movieRequest.getPersonajes());
         return movie;
     }
 }

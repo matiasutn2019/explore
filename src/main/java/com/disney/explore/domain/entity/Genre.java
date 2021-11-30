@@ -1,5 +1,6 @@
 package com.disney.explore.domain.entity;
 
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,5 +27,9 @@ public class Genre {
 
     @Column(name = "IMAGE")
     private String image;
+
+    @JoinColumn(name = "CHARACTERS_ID")
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    private List<Movie> peliculas;
 
 }
