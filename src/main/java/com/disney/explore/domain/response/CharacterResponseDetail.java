@@ -12,12 +12,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CharacterResponseDetail {
-
-  private String image;
-  private String nombre;
-  private Integer edad;
-  private Double peso;
-  private String historia;
-  private List<Movie> peliculas;
+    private Long id;
+    private String image;
+    private String nombre;
+    private Integer edad;
+    private Double peso;
+    private String historia;
+    private List<Movie> peliculas;
 
 }
