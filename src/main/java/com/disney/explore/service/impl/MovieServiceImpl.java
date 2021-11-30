@@ -1,7 +1,6 @@
 package com.disney.explore.service.impl;
 
 import com.disney.explore.common.converter.ConvertUtils;
-import com.disney.explore.domain.entity.Genre;
 import com.disney.explore.domain.entity.Movie;
 import com.disney.explore.domain.request.MovieRequest;
 import com.disney.explore.domain.response.MovieResponseDetail;
@@ -9,7 +8,6 @@ import com.disney.explore.domain.response.MovieResponseDetailList;
 import com.disney.explore.domain.response.MovieResponseList;
 import com.disney.explore.repository.IMovieRepo;
 import com.disney.explore.service.IMovieService;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
@@ -48,14 +46,7 @@ public class MovieServiceImpl implements IMovieService {
         if (movieOptional.isEmpty()) {
             throw new EntityNotFoundException("Movie not found");
         }
-        Movie movie = movieOptional.get();
-        movie.setImage(movieRequest.getImage());
-        movie.setTitulo(movieRequest.getTitulo());
-        movie.setFechaCreacion(movieRequest.getFechaCreacion());
-        movie.setCalificacion(movieRequest.getCalificacion());
-        List<Genre> generos = new ArrayList<>();
-        movieRequest.getGeneros().forEach(genre -> generos.add(genre));
-        movie.setGeneros(generos);
+        Movie movie = updateMovie(movieOptional.get(), movieRequest);
         movieRepo.save(movie);
         return convertUtils.toMovieResponseDetail(movie);
     }
@@ -86,9 +77,16 @@ public class MovieServiceImpl implements IMovieService {
         movie.setTitulo(movieRequest.getTitulo());
         movie.setFechaCreacion(movieRequest.getFechaCreacion());
         movie.setCalificacion(movieRequest.getCalificacion());
-        List<Genre> generos = new ArrayList<>();
-        movieRequest.getGeneros().forEach(genre -> generos.add(genre));
-        movie.setGeneros(generos);
+        movie.setGeneros(movieRequest.getGeneros());
+        return movie;
+    }
+
+    private Movie updateMovie(Movie movie, MovieRequest movieRequest) {
+        movie.setImage(movieRequest.getImage());
+        movie.setTitulo(movieRequest.getTitulo());
+        movie.setFechaCreacion(movieRequest.getFechaCreacion());
+        movie.setCalificacion(movieRequest.getCalificacion());
+        movie.setGeneros(movieRequest.getGeneros());
         return movie;
     }
 }

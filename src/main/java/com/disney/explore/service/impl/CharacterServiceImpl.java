@@ -2,14 +2,12 @@ package com.disney.explore.service.impl;
 
 import com.disney.explore.common.converter.ConvertUtils;
 import com.disney.explore.domain.entity.Character;
-import com.disney.explore.domain.entity.Movie;
 import com.disney.explore.domain.request.CharacterRequest;
 import com.disney.explore.domain.response.CharacterResponseDetail;
 import com.disney.explore.domain.response.CharacterResponseDetailList;
 import com.disney.explore.domain.response.CharacterResponseList;
 import com.disney.explore.repository.ICharacterRepo;
 import com.disney.explore.service.ICharacterService;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
@@ -48,15 +46,7 @@ public class CharacterServiceImpl implements ICharacterService {
         if (characterOptional.isEmpty()) {
             throw new EntityNotFoundException("Character not found");
         }
-        Character character = characterOptional.get();
-        character.setImage(characterRequest.getImage());
-        character.setNombre(characterRequest.getNombre());
-        character.setEdad(characterRequest.getEdad());
-        character.setPeso(characterRequest.getPeso());
-        character.setHistoria(characterRequest.getHistoria());
-        List<Movie> peliculas = new ArrayList<>();
-        characterRequest.getPeliculas().forEach(movie -> peliculas.add(movie));
-        character.setPeliculas(peliculas);
+        Character character = updateCharacter(characterOptional.get(), characterRequest);
         characterRepo.save(character);
         return convertUtils.toCharacterResponseDetail(character);
     }
@@ -96,9 +86,17 @@ public class CharacterServiceImpl implements ICharacterService {
         character.setEdad(characterRequest.getEdad());
         character.setPeso(characterRequest.getPeso());
         character.setHistoria(characterRequest.getHistoria());
-        List<Movie> peliculas = new ArrayList<>();
-        characterRequest.getPeliculas().forEach(movie -> peliculas.add(movie));
-        character.setPeliculas(peliculas);
+        character.setPeliculas(characterRequest.getPeliculas());
+        return character;
+    }
+
+    private Character updateCharacter(Character character, CharacterRequest characterRequest) {
+        character.setImage(characterRequest.getImage());
+        character.setNombre(characterRequest.getNombre());
+        character.setEdad(characterRequest.getEdad());
+        character.setPeso(characterRequest.getPeso());
+        character.setHistoria(characterRequest.getHistoria());
+        character.setPeliculas(characterRequest.getPeliculas());
         return character;
     }
 }
