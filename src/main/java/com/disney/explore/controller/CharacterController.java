@@ -45,7 +45,7 @@ public class CharacterController {
     @DeleteMapping(value = "/characters/{id}")
     public ResponseEntity<Long> delete(@PathVariable Long id) {
         characterService.delete(id);
-        return new ResponseEntity<>(id, HttpStatus.OK);
+        return new ResponseEntity<>(id, HttpStatus.NO_CONTENT);
     }
     @GetMapping(
         value = "/characters{name}",

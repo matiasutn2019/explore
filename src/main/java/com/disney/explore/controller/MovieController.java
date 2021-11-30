@@ -46,7 +46,7 @@ public class MovieController {
         produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Long> delete(@PathVariable Long id) {
         movieService.delete(id);
-        return new ResponseEntity<>(id, HttpStatus.OK);
+        return new ResponseEntity<>(id, HttpStatus.NO_CONTENT);
     }
     @GetMapping(
         value = "/movies{name}",
