@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -31,7 +30,7 @@ public class Movie {
     private String titulo;
 
     @Column(name = "FECHA_CREACION")
-    private Date fechaCreacion;
+    private String fechaCreacion;
 
     @Column(name = "CALIFICACION")
     private Integer calificacion;
