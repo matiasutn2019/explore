@@ -1,5 +1,6 @@
 package com.disney.explore.domain.response;
 
+import com.disney.explore.domain.entity.Character;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,6 +17,6 @@ public class MovieResponseDetail {
     private String titulo;
     private String fechaCreacion;
     private Integer calificacion;
-    private List<Character> characters;
+    private List<Character> personajes;
 
 }
