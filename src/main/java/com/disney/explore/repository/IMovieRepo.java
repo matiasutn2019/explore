@@ -13,6 +13,6 @@ public interface IMovieRepo extends JpaRepository<Movie, Long> {
     @Query(value = "from Movie m where m.titulo = :titulo")
     Movie findByName(@Param("titulo") String titulo);
 
-    @Query(value = "from Movie m where m.generos = :genreId")
+    @Query(value = "select g.peliculas from Genre g where g.id = :genreId")
     List<Movie> findByGenre(@Param("genreId") long genreId);
 }
