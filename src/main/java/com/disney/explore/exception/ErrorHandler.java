@@ -16,4 +16,11 @@ public class ErrorHandler {
             .body(HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(UserAlreadyRegisteredException.class)
+    public ResponseEntity<?> handleUserAlreadyRegisteredException(HttpServletRequest request,
+        UserAlreadyRegisteredException e) {
+        return ResponseEntity.badRequest()
+            .body(HttpStatus.BAD_REQUEST);
+    }
+
 }

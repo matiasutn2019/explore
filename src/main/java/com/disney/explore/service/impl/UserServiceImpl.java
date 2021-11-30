@@ -10,6 +10,7 @@ import com.disney.explore.domain.request.UserRegisterRequest;
 import com.disney.explore.domain.response.UserAuthenticatedResponse;
 import com.disney.explore.domain.response.UserCreatedResponse;
 import com.disney.explore.exception.SendEmailException;
+import com.disney.explore.exception.UserAlreadyRegisteredException;
 import com.disney.explore.repository.IUserRepo;
 import com.disney.explore.security.JwtService;
 import com.disney.explore.service.IUserService;
@@ -48,9 +49,9 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 
     @Override
     public UserCreatedResponse create(UserRegisterRequest userRegisterRequest)
-        throws Exception {
+        throws UserAlreadyRegisteredException {
         if(userRepo.findByUsername(userRegisterRequest.getEmail()) != null) {
-            throw new Exception("User already registered!!!");
+            throw new UserAlreadyRegisteredException("User already registered!!!");
         }
         User user = buildUser(userRegisterRequest);
         userRepo.save(user);

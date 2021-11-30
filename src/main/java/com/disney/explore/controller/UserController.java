@@ -4,6 +4,7 @@ import com.disney.explore.domain.request.UserLoginRequest;
 import com.disney.explore.domain.request.UserRegisterRequest;
 import com.disney.explore.domain.response.UserAuthenticatedResponse;
 import com.disney.explore.domain.response.UserCreatedResponse;
+import com.disney.explore.exception.UserAlreadyRegisteredException;
 import com.disney.explore.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,7 +26,7 @@ public class UserController {
         consumes = MediaType.APPLICATION_JSON_VALUE,
         produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserCreatedResponse> create(@RequestBody UserRegisterRequest userRegisterRequest)
-        throws Exception {
+        throws UserAlreadyRegisteredException {
         return new ResponseEntity<>(userService.create(userRegisterRequest), HttpStatus.CREATED);
     }
 
