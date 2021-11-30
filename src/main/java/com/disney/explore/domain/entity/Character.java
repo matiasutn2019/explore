@@ -18,7 +18,7 @@ public class Character {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE)
-    @Column(name = "CHARACTER_ID")
+    @Column(name = "CHARACTERS_ID")
     private Long id;
 
     @Column(name = "IMAGE")

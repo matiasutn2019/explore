@@ -20,7 +20,7 @@ public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE)
-    @Column(name = "MOVIE_ID")
+    @Column(name = "MOVIES_ID")
     private Long id;
 
     @Column(name = "IMAGE")

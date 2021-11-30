@@ -19,7 +19,7 @@ public class Genre {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE)
-    @Column(name = "GENRE_ID")
+    @Column(name = "GENRES_ID")
     private Long id;
 
     @Column(name = "NOMBRE")
@@ -28,7 +28,7 @@ public class Genre {
     @Column(name = "IMAGE")
     private String image;
 
-    @JoinColumn(name = "CHARACTERS_ID")
+    @JoinColumn(name = "MOVIES_ID")
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<Movie> peliculas;
 
