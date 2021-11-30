@@ -11,11 +11,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MovieResponseDetail {
-
-  private String image;
-  private String titulo;
-  private String fechaCreacion;
-  private Integer calificacion;
-  private List<Character> characters;
+    private Long id;
+    private String image;
+    private String titulo;
+    private String fechaCreacion;
+    private Integer calificacion;
+    private List<Character> characters;
 
 }
