@@ -84,8 +84,8 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
             UsernamePasswordAuthenticationToken authentication =
                 new UsernamePasswordAuthenticationToken(userLoginRequest.getEmail(), userLoginRequest.getPassword());
             authenticationManager.authenticate(authentication);
-        } catch (BadCredentialsException e) {
-            throw new Exception("Invalid username or password!!!", e);
+        } catch (Exception e) {
+            throw new BadCredentialsException("Invalid username or password!!!", e);
         }
         UserDetails userDetails = loadUserByUsername(userLoginRequest.getEmail());
         String token = jwtService.createToken(userDetails);
