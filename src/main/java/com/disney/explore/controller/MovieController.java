@@ -2,8 +2,6 @@ package com.disney.explore.controller;
 
 import com.disney.explore.domain.request.MovieRequest;
 import com.disney.explore.domain.response.MovieResponseDetail;
-import com.disney.explore.domain.response.MovieResponseDetailList;
-import com.disney.explore.domain.response.MovieResponseList;
 import com.disney.explore.service.IMovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,10 +15,18 @@ public class MovieController {
     @Autowired
     private IMovieService movieService;
 
+
     @GetMapping(
         value = "/movies",
         produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<MovieResponseList> findAll() {
+    public ResponseEntity<?> get(
+        @RequestParam(value = "name", required = false) String name,
+        @RequestParam(value = "genre", required = false) Long genre) {
+        if (name != null) {
+            return new ResponseEntity<>(movieService.findByName(name), HttpStatus.OK);
+        } else if(genre != null) {
+            return new ResponseEntity<>(movieService.findByGenre(genre), HttpStatus.OK);
+        }
         return new ResponseEntity<>(movieService.findAll(), HttpStatus.OK);
     }
 
@@ -46,20 +52,6 @@ public class MovieController {
     public ResponseEntity<Long> delete(@PathVariable Long id) {
         movieService.delete(id);
         return new ResponseEntity<>(id, HttpStatus.NO_CONTENT);
-    }
-
-    @GetMapping(
-        value = "/movies{name}",
-        produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<MovieResponseDetail> findByName(@RequestParam(name = "name") String name) {
-        return new ResponseEntity<>(movieService.findByName(name), HttpStatus.OK);
-    }
-
-    @GetMapping(
-        value = "/movies{genreId}",
-        produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<MovieResponseDetailList> findByGenre(@RequestParam(name = "genre") Long id) {
-        return new ResponseEntity<>(movieService.findByGenre(id), HttpStatus.OK);
     }
 
 }
