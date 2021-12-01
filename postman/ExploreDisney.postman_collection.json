@@ -345,7 +345,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"image\" :\"\",\r\n    \"titulo\" :\"\",\r\n    \"fechaCreacion\" :\"\",\r\n    \"calificacion\" :0,\r\n    \"personajes\":[]\r\n}",
+							"raw": "{\r\n    \"image\" :\"\",\r\n    \"titulo\" :\"\",\r\n    \"fechaCreacion\" :\"\",\r\n    \"calificacion\" :0,\r\n    \"personajesId\":[]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
