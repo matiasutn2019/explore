@@ -199,6 +199,101 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "byName",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/characters?name={name}",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"characters"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "{name}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "byAge",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/characters?age={age}",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"characters"
+							],
+							"query": [
+								{
+									"key": "age",
+									"value": "{age}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "byMovieId",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "?movie={movieId}",
+							"query": [
+								{
+									"key": "movie",
+									"value": "{movieId}"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -250,7 +345,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"image\" :\"\",\r\n    \"titulo\" :\"\",\r\n    \"fechaCreacion\" :\"\",\r\n    \"calificacion\" :0\r\n}",
+							"raw": "{\r\n    \"image\" :\"\",\r\n    \"titulo\" :\"\",\r\n    \"fechaCreacion\" :\"\",\r\n    \"calificacion\" :0,\r\n    \"personajes\":[]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -287,7 +382,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"image\" :\"\",\r\n    \"titulo\" :\"\",\r\n    \"fechaCreacion\" :\"\",\r\n    \"calificacion\" :0\r\n}",
+							"raw": "{\r\n    \"image\" :\"\",\r\n    \"titulo\" :\"\",\r\n    \"fechaCreacion\" :\"\",\r\n    \"calificacion\" :0,\r\n    \"personajes\":[]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -331,6 +426,74 @@
 							"path": [
 								"movies",
 								"{id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "byName",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/movies?name={name}",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"movies"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "{name}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "byGenreId",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/movies?genre={genreId}",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"movies"
+							],
+							"query": [
+								{
+									"key": "genre",
+									"value": "{genreId}"
+								}
 							]
 						}
 					},
