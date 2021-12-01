@@ -13,10 +13,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonRootName("Character")
-public class CharacterResponseDetail {
+public class CharacterResponseDetail extends CharacterResponse {
     private Long id;
-    private String image;
-    private String nombre;
     private Integer edad;
     private Double peso;
     private String historia;

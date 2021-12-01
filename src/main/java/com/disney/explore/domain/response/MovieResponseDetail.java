@@ -13,11 +13,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonRootName("Movie")
-public class MovieResponseDetail {
+public class MovieResponseDetail extends MovieResponse {
     private Long id;
-    private String image;
-    private String titulo;
-    private String fechaCreacion;
     private Integer calificacion;
     private List<Character> personajes;
 
