@@ -1,7 +1,6 @@
 package com.disney.explore.service.impl;
 
 import com.disney.explore.common.converter.ConvertUtils;
-import com.disney.explore.common.validation.ValidateParam;
 import com.disney.explore.domain.entity.Movie;
 import com.disney.explore.domain.request.MovieRequest;
 import com.disney.explore.domain.response.MovieResponseDetail;
@@ -35,7 +34,6 @@ public class MovieServiceImpl implements IMovieService {
     @Override
     @Transactional
     public MovieResponseDetail create(MovieRequest movieRequest) {
-        ValidateParam.validate(movieRequest.getCalificacion(), 1, 5);
         Movie movie = buildMovie(movieRequest);
         movieRepo.save(movie);
         return convertUtils.toMovieResponseDetail(movie);

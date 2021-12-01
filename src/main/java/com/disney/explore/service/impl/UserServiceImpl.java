@@ -26,7 +26,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional
 public class UserServiceImpl implements IUserService, UserDetailsService {
 
     @Autowired
@@ -48,6 +47,7 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
     private EmailHelper emailHelper;
 
     @Override
+    @Transactional
     public UserCreatedResponse create(UserRegisterRequest userRegisterRequest)
         throws UserAlreadyRegisteredException {
         if(userRepo.findByUsername(userRegisterRequest.getEmail()) != null) {
@@ -60,6 +60,7 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
     }
 
     @Override
+    @Transactional
     public UserDetails loadUserByUsername(String email) {
         User user = userRepo.findByUsername(email);
         if (user == null) {
@@ -77,6 +78,7 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
     }
 
     @Override
+    @Transactional
     public UserAuthenticatedResponse login(UserLoginRequest userLoginRequest) throws Exception {
         try {
             UsernamePasswordAuthenticationToken authentication =

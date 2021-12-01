@@ -23,11 +23,4 @@ public class ErrorHandler {
             .body(HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(InvalidParamException.class)
-    public  ResponseEntity<?> handleInvalidParamException(HttpServletRequest request,
-        InvalidParamException e) {
-        return ResponseEntity.badRequest()
-            .body(HttpStatus.BAD_REQUEST);
-    }
-
 }

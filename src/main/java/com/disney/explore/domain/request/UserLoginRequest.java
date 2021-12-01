@@ -1,5 +1,7 @@
 package com.disney.explore.domain.request;
 
+import com.disney.explore.common.validation.ValidationMessages;
+import javax.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,6 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserLoginRequest {
+    @Email(message = ValidationMessages.REQUEST_PARAM_EMAIL_ERROR_MESSAGE)
     private String email;
     private String password;
 
