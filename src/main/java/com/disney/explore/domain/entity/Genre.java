@@ -30,6 +30,6 @@ public class Genre {
 
     @JoinColumn(name = "MOVIES_ID")
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    private List<Movie> peliculas;
+    private List<Movie> movies;
 
 }

@@ -1,13 +1,16 @@
 package com.disney.explore.service.impl;
 
 import com.disney.explore.common.converter.ConvertUtils;
+import com.disney.explore.domain.entity.Character;
 import com.disney.explore.domain.entity.Movie;
 import com.disney.explore.domain.request.MovieRequest;
 import com.disney.explore.domain.response.MovieResponseDetail;
 import com.disney.explore.domain.response.MovieResponseDetailList;
 import com.disney.explore.domain.response.MovieResponseList;
+import com.disney.explore.repository.ICharacterRepo;
 import com.disney.explore.repository.IMovieRepo;
 import com.disney.explore.service.IMovieService;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
@@ -23,6 +26,9 @@ public class MovieServiceImpl implements IMovieService {
 
     @Autowired
     private ConvertUtils convertUtils;
+
+    @Autowired
+    private ICharacterRepo characterRepo;
 
     @Override
     @Transactional
@@ -77,7 +83,8 @@ public class MovieServiceImpl implements IMovieService {
         movie.setTitulo(movieRequest.getTitulo());
         movie.setFechaCreacion(movieRequest.getFechaCreacion());
         movie.setCalificacion(movieRequest.getCalificacion());
-        movie.setPersonajes(movieRequest.getPersonajes());
+        List<Character> characters = new ArrayList<>();
+        movieRequest.getPersonajesId().forEach(id -> characters.add(characterRepo.getById(id)));
         return movie;
     }
 
@@ -86,7 +93,8 @@ public class MovieServiceImpl implements IMovieService {
         movie.setTitulo(movieRequest.getTitulo());
         movie.setFechaCreacion(movieRequest.getFechaCreacion());
         movie.setCalificacion(movieRequest.getCalificacion());
-        movie.setPersonajes(movieRequest.getPersonajes());
+        List<Character> characters = new ArrayList<>();
+        movieRequest.getPersonajesId().forEach(id -> characters.add(characterRepo.getById(id)));
         return movie;
     }
 }

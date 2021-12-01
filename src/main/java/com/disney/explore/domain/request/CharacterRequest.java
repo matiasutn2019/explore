@@ -1,7 +1,5 @@
 package com.disney.explore.domain.request;
 
-import com.disney.explore.domain.entity.Movie;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,6 +16,5 @@ public class CharacterRequest {
   private Integer edad;
   private Double peso;
   private String historia;
-  private List<Movie> peliculas;
 
 }

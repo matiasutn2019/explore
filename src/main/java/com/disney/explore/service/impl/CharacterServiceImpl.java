@@ -86,7 +86,6 @@ public class CharacterServiceImpl implements ICharacterService {
         character.setEdad(characterRequest.getEdad());
         character.setPeso(characterRequest.getPeso());
         character.setHistoria(characterRequest.getHistoria());
-        character.setPeliculas(characterRequest.getPeliculas());
         return character;
     }
 
@@ -96,7 +95,6 @@ public class CharacterServiceImpl implements ICharacterService {
         character.setEdad(characterRequest.getEdad());
         character.setPeso(characterRequest.getPeso());
         character.setHistoria(characterRequest.getHistoria());
-        character.setPeliculas(characterRequest.getPeliculas());
         return character;
     }
 }

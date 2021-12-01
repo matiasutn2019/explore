@@ -10,9 +10,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface IMovieRepo extends JpaRepository<Movie, Long> {
 
+    List<Movie> findAll();
+
     @Query(value = "from Movie m where m.titulo = :titulo")
     Movie findByName(@Param("titulo") String titulo);
 
-    @Query(value = "select g.peliculas from Genre g where g.id = :genreId")
+    @Query(value = "select g.movies from Genre g where g.id = :genreId")
     List<Movie> findByGenre(@Param("genreId") long genreId);
 }

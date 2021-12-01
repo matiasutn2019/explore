@@ -16,7 +16,7 @@ public interface ICharacterRepo extends JpaRepository<Character, Long> {
     @Query("from Character c where c.edad = :edad")
     List<Character> findByAge(@Param("") int edad);
 
-    @Query("from Character c where c.peliculas = :movieId")
+    @Query("select m.characters from Movie m where m.id = :movieId")
     List<Character> findByMovie(@Param("movieId") long movieId);
 
 }

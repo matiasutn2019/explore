@@ -19,7 +19,6 @@ public class MovieController {
 
     @GetMapping(
         value = "/movies",
-        consumes = MediaType.APPLICATION_JSON_VALUE,
         produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<MovieResponseList> findAll() {
         return new ResponseEntity<>(movieService.findAll(), HttpStatus.OK);
@@ -48,6 +47,7 @@ public class MovieController {
         movieService.delete(id);
         return new ResponseEntity<>(id, HttpStatus.NO_CONTENT);
     }
+
     @GetMapping(
         value = "/movies{name}",
         produces = MediaType.APPLICATION_JSON_VALUE)

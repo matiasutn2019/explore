@@ -13,6 +13,7 @@ import com.disney.explore.domain.response.MovieResponseList;
 import com.disney.explore.domain.response.MovieResponse;
 import com.disney.explore.domain.response.UserAuthenticatedResponse;
 import com.disney.explore.domain.response.UserCreatedResponse;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Component;
 
@@ -42,9 +43,9 @@ public class ConvertUtils {
     }
 
     public CharacterResponseList toCharacterResponseList(List<Character> characters) {
-        CharacterResponseList characterResponseList = new CharacterResponseList();
-        characters.forEach(character -> characterResponseList.getCharacterResponseList().add(toCharacterResponse(character)));
-        return characterResponseList;
+        List<CharacterResponse> characterResponses = new ArrayList<>();
+        characters.forEach(character -> characterResponses.add(toCharacterResponse(character)));
+        return new CharacterResponseList(characterResponses);
     }
 
     public CharacterResponseDetail toCharacterResponseDetail(Character character) {
@@ -55,14 +56,14 @@ public class ConvertUtils {
         characterResponseDetail.setEdad(character.getEdad());
         characterResponseDetail.setPeso(character.getPeso());
         characterResponseDetail.setHistoria(character.getHistoria());
-        characterResponseDetail.setPeliculas(character.getPeliculas());
+        characterResponseDetail.setPeliculas(character.getMovies());
         return characterResponseDetail;
     }
 
     public CharacterResponseDetailList toCharacterResponseDetailList(List<Character> characters) {
-        CharacterResponseDetailList characterResponseDetailList = new CharacterResponseDetailList();
-        characters.forEach(character -> characterResponseDetailList.getCharacterResponseDetailList().add(toCharacterResponseDetail(character)));
-        return characterResponseDetailList;
+        List<CharacterResponseDetail> characterResponseDetails = new ArrayList<>();
+        characters.forEach(character -> characterResponseDetails.add(toCharacterResponseDetail(character)));
+        return new CharacterResponseDetailList(characterResponseDetails);
     }
 
 
@@ -75,9 +76,9 @@ public class ConvertUtils {
     }
 
     public MovieResponseList toMovieResponseList(List<Movie> movies) {
-        MovieResponseList movieResponseList = new MovieResponseList();
-        movies.forEach(movie -> movieResponseList.getMovieResponseList().add(toMovieResponse(movie)));
-        return movieResponseList;
+        List<MovieResponse> movieResponses = new ArrayList<>();
+        movies.forEach(movie -> movieResponses.add(toMovieResponse(movie)));
+        return new MovieResponseList(movieResponses);
     }
 
     public MovieResponseDetail toMovieResponseDetail(Movie movie) {
@@ -86,14 +87,15 @@ public class ConvertUtils {
         movieResponseDetail.setTitulo(movie.getTitulo());
         movieResponseDetail.setImage(movie.getImage());
         movieResponseDetail.setFechaCreacion(movie.getFechaCreacion());
-        movieResponseDetail.setPersonajes(movie.getPersonajes());
+        movieResponseDetail.setCalificacion(movie.getCalificacion());
+        movieResponseDetail.setPersonajes(movie.getCharacters());
         return movieResponseDetail;
     }
 
     public MovieResponseDetailList toMovieResponseDetailList(List<Movie> movies) {
-        MovieResponseDetailList movieResponseDetailList = new MovieResponseDetailList();
-        movies.forEach(movie -> movieResponseDetailList.getMovieResponseDetailList().add(toMovieResponseDetail(movie)));
-        return movieResponseDetailList;
+        List<MovieResponseDetail> movieResponseDetails = new ArrayList<>();
+        movies.forEach(movie -> movieResponseDetails.add(toMovieResponseDetail(movie)));
+        return new MovieResponseDetailList(movieResponseDetails);
     }
 
 }
