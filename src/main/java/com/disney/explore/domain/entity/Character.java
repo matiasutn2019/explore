@@ -1,5 +1,6 @@
 package com.disney.explore.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -36,6 +37,7 @@ public class Character {
     @Column(name = "HISTORIA")
     private String historia;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "characters")
     private List<Movie> movies;
 

@@ -79,6 +79,15 @@ public class CharacterServiceImpl implements ICharacterService {
         return convertUtils.toCharacterResponseDetailList(characters);
     }
 
+    @Override
+    public Character byId(long id) {
+        Optional<Character> characterOptional = characterRepo.findById(id);
+        if (characterOptional.isEmpty()) {
+            throw new EntityNotFoundException("Character not found");
+        }
+        return characterOptional.get();
+    }
+
     private Character buildCharacter(CharacterRequest characterRequest) {
         Character character = new Character();
         character.setImage(characterRequest.getImage());

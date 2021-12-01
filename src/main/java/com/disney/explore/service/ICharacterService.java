@@ -1,5 +1,6 @@
 package com.disney.explore.service;
 
+import com.disney.explore.domain.entity.Character;
 import com.disney.explore.domain.request.CharacterRequest;
 import com.disney.explore.domain.response.CharacterResponseDetail;
 import com.disney.explore.domain.response.CharacterResponseDetailList;
@@ -20,5 +21,7 @@ public interface ICharacterService {
   CharacterResponseDetailList findByAge(int age);
 
   CharacterResponseDetailList findByMovie(long id);
+
+  Character byId(long id);
 
 }

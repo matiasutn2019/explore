@@ -1,5 +1,6 @@
 package com.disney.explore.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -35,6 +36,7 @@ public class Movie {
     @Column(name = "CALIFICACION")
     private Integer calificacion;
 
+    @JsonIgnore
     @JoinColumn(name = "CHARACTERS_ID")
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<Character> characters;

@@ -9,6 +9,7 @@ import com.disney.explore.domain.response.MovieResponseDetailList;
 import com.disney.explore.domain.response.MovieResponseList;
 import com.disney.explore.repository.ICharacterRepo;
 import com.disney.explore.repository.IMovieRepo;
+import com.disney.explore.service.ICharacterService;
 import com.disney.explore.service.IMovieService;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +29,7 @@ public class MovieServiceImpl implements IMovieService {
     private ConvertUtils convertUtils;
 
     @Autowired
-    private ICharacterRepo characterRepo;
+    private ICharacterService characterService;
 
     @Override
     @Transactional
@@ -84,7 +85,8 @@ public class MovieServiceImpl implements IMovieService {
         movie.setFechaCreacion(movieRequest.getFechaCreacion());
         movie.setCalificacion(movieRequest.getCalificacion());
         List<Character> characters = new ArrayList<>();
-        movieRequest.getPersonajesId().forEach(id -> characters.add(characterRepo.getById(id)));
+        movieRequest.getPersonajesId().forEach(id -> characters.add(characterService.byId(id)));
+        movie.setCharacters(characters);
         return movie;
     }
 
@@ -94,7 +96,8 @@ public class MovieServiceImpl implements IMovieService {
         movie.setFechaCreacion(movieRequest.getFechaCreacion());
         movie.setCalificacion(movieRequest.getCalificacion());
         List<Character> characters = new ArrayList<>();
-        movieRequest.getPersonajesId().forEach(id -> characters.add(characterRepo.getById(id)));
+        movieRequest.getPersonajesId().forEach(id -> characters.add(characterService.byId(id)));
+        movie.setCharacters(characters);
         return movie;
     }
 }
