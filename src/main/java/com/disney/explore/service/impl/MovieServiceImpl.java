@@ -7,7 +7,6 @@ import com.disney.explore.domain.request.MovieRequest;
 import com.disney.explore.domain.response.MovieResponseDetail;
 import com.disney.explore.domain.response.MovieResponseDetailList;
 import com.disney.explore.domain.response.MovieResponseList;
-import com.disney.explore.repository.ICharacterRepo;
 import com.disney.explore.repository.IMovieRepo;
 import com.disney.explore.service.ICharacterService;
 import com.disney.explore.service.IMovieService;
@@ -35,6 +34,7 @@ public class MovieServiceImpl implements IMovieService {
     @Transactional
     public MovieResponseList findAll() {
         List<Movie> movies = movieRepo.findAll();
+        validate(movies);
         return convertUtils.toMovieResponseList(movies);
     }
 
@@ -50,9 +50,7 @@ public class MovieServiceImpl implements IMovieService {
     @Transactional
     public MovieResponseDetail update(long id, MovieRequest movieRequest) {
         Optional<Movie> movieOptional = movieRepo.findById(id);
-        if (movieOptional.isEmpty()) {
-            throw new EntityNotFoundException("Movie not found");
-        }
+        validate(movieOptional);
         Movie movie = updateMovie(movieOptional.get(), movieRequest);
         movieRepo.save(movie);
         return convertUtils.toMovieResponseDetail(movie);
@@ -67,14 +65,16 @@ public class MovieServiceImpl implements IMovieService {
     @Override
     @Transactional
     public MovieResponseDetail findByName(String name) {
-        Movie movie = movieRepo.findByName(name);
-        return convertUtils.toMovieResponseDetail(movie);
+        Optional<Movie> movie = movieRepo.findByName(name);
+        validate(movie);
+        return convertUtils.toMovieResponseDetail(movie.get());
     }
 
     @Override
     @Transactional
     public MovieResponseDetailList findByGenre(long id) {
         List<Movie> movies = movieRepo.findByGenre(id);
+        validate(movies);
         return convertUtils.toMovieResponseDetailList(movies);
     }
     
@@ -99,5 +99,17 @@ public class MovieServiceImpl implements IMovieService {
         movieRequest.getPersonajesId().forEach(id -> characters.add(characterService.byId(id)));
         movie.setCharacters(characters);
         return movie;
+    }
+
+    private void validate(Optional<Movie> movie) {
+        if(movie.isEmpty()) {
+            throw new EntityNotFoundException("The movie you are looking for is not registered");
+        }
+    }
+
+    private void validate(List<Movie> movies) {
+        if(movies.isEmpty()) {
+            throw new EntityNotFoundException("The movie you are looking for is not registered");
+        }
     }
 }

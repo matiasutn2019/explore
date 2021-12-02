@@ -53,6 +53,12 @@ public class ErrorHandler {
             .body(buildResponse(e, HttpStatus.BAD_REQUEST));
     }
 
+    @ExceptionHandler(NullPointerException.class)
+    public ResponseEntity<?> handleNullPointerException(HttpServletRequest request, Exception e) {
+        return ResponseEntity.internalServerError()
+            .body(buildResponse(e, HttpStatus.INTERNAL_SERVER_ERROR));
+    }
+
     private ErrorResponse buildResponse(Exception e, HttpStatus httpStatus) {
         return new ErrorResponse(e, httpStatus.value());
     }

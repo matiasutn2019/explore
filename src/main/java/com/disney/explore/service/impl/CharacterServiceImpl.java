@@ -28,6 +28,7 @@ public class CharacterServiceImpl implements ICharacterService {
     @Transactional
     public CharacterResponseList findAll() {
         List<Character> characters = characterRepo.findAll();
+        validate(characters);
         return convertUtils.toCharacterResponseList(characters);
     }
 
@@ -43,9 +44,7 @@ public class CharacterServiceImpl implements ICharacterService {
     @Transactional
     public CharacterResponseDetail update(long id, CharacterRequest characterRequest) {
         Optional<Character> characterOptional = characterRepo.findById(id);
-        if (characterOptional.isEmpty()) {
-            throw new EntityNotFoundException("Character not found");
-        }
+        validate(characterOptional);
         Character character = updateCharacter(characterOptional.get(), characterRequest);
         characterRepo.save(character);
         return convertUtils.toCharacterResponseDetail(character);
@@ -61,14 +60,16 @@ public class CharacterServiceImpl implements ICharacterService {
     @Override
     @Transactional
     public CharacterResponseDetail findByName(String name) {
-        Character character = characterRepo.findByName(name);
-        return convertUtils.toCharacterResponseDetail(character);
+        Optional<Character> character = characterRepo.findByName(name);
+        validate(character);
+        return convertUtils.toCharacterResponseDetail(character.get());
     }
 
     @Override
     @Transactional
     public CharacterResponseDetailList findByAge(int age) {
         List<Character> characters = characterRepo.findByAge(age);
+        validate(characters);
         return convertUtils.toCharacterResponseDetailList(characters);
     }
 
@@ -76,15 +77,14 @@ public class CharacterServiceImpl implements ICharacterService {
     @Transactional
     public CharacterResponseDetailList findByMovie(long id) {
         List<Character> characters = characterRepo.findByMovie(id);
+        validate(characters);
         return convertUtils.toCharacterResponseDetailList(characters);
     }
 
     @Override
     public Character byId(long id) {
         Optional<Character> characterOptional = characterRepo.findById(id);
-        if (characterOptional.isEmpty()) {
-            throw new EntityNotFoundException("Character not found");
-        }
+        validate(characterOptional);
         return characterOptional.get();
     }
 
@@ -105,5 +105,17 @@ public class CharacterServiceImpl implements ICharacterService {
         character.setPeso(characterRequest.getPeso());
         character.setHistoria(characterRequest.getHistoria());
         return character;
+    }
+
+    private void validate(Optional<Character> character) {
+        if(character.isEmpty()) {
+            throw new EntityNotFoundException("The character you are looking for is not registered");
+        }
+    }
+
+    private void validate(List<Character> characters) {
+        if(characters.isEmpty()) {
+            throw new EntityNotFoundException("The character you are looking for is not registered");
+        }
     }
 }

@@ -50,13 +50,15 @@ public class ConvertUtils {
 
     public CharacterResponseDetail toCharacterResponseDetail(Character character) {
         CharacterResponseDetail characterResponseDetail = new CharacterResponseDetail();
+        List<String> nombrePeliculas = new ArrayList<>();
         characterResponseDetail.setId(character.getId());
         characterResponseDetail.setNombre(character.getNombre());
         characterResponseDetail.setImage(character.getImage());
         characterResponseDetail.setEdad(character.getEdad());
         characterResponseDetail.setPeso(character.getPeso());
         characterResponseDetail.setHistoria(character.getHistoria());
-        characterResponseDetail.setPeliculas(character.getMovies());
+        character.getMovies().forEach(movie -> nombrePeliculas.add(movie.getTitulo()));
+        characterResponseDetail.setNombrePeliculas(nombrePeliculas);
         return characterResponseDetail;
     }
 
@@ -83,12 +85,14 @@ public class ConvertUtils {
 
     public MovieResponseDetail toMovieResponseDetail(Movie movie) {
         MovieResponseDetail movieResponseDetail = new MovieResponseDetail();
+        List<String> nombrePersonajes = new ArrayList<>();
         movieResponseDetail.setId(movie.getId());
         movieResponseDetail.setTitulo(movie.getTitulo());
         movieResponseDetail.setImage(movie.getImage());
         movieResponseDetail.setFechaCreacion(movie.getFechaCreacion());
         movieResponseDetail.setCalificacion(movie.getCalificacion());
-        movieResponseDetail.setPersonajes(movie.getCharacters());
+        movie.getCharacters().forEach(character -> nombrePersonajes.add(character.getNombre()));
+        movieResponseDetail.setNombrePersonajes(nombrePersonajes);
         return movieResponseDetail;
     }
 

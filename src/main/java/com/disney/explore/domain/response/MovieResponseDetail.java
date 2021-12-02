@@ -1,6 +1,5 @@
 package com.disney.explore.domain.response;
 
-import com.disney.explore.domain.entity.Character;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -16,6 +15,6 @@ import lombok.Setter;
 public class MovieResponseDetail extends MovieResponse {
     private Long id;
     private Integer calificacion;
-    private List<Character> personajes;
+    private List<String> nombrePersonajes;
 
 }
