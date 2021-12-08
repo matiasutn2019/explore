@@ -14,6 +14,6 @@ import lombok.Setter;
 @JsonRootName("Movie List")
 public class MovieResponseDetailList {
 
-  private List<MovieResponseDetail> movieResponseDetailList;
+  private List<MovieResponseDetail> listMovieResponseDetail;
 
 }

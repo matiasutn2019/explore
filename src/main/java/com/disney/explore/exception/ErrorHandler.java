@@ -63,8 +63,4 @@ public class ErrorHandler {
         return new ErrorResponse(e, httpStatus.value());
     }
 
-    private ErrorResponse buildResponse(String message, HttpStatus httpStatus) {
-        return new ErrorResponse(message, httpStatus.value());
-    }
-
 }

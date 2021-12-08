@@ -14,6 +14,6 @@ import lombok.Setter;
 @JsonRootName("Character List")
 public class CharacterResponseDetailList {
 
-  private List<CharacterResponseDetail> characterResponseDetailList;
+  private List<CharacterResponseDetail> listCharacterResponseDetail;
 
 }

@@ -1,7 +1,6 @@
 package com.disney.explore.domain.request;
 
 import com.disney.explore.common.validation.ValidationMessages;
-import com.disney.explore.domain.entity.Character;
 import java.util.List;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;

@@ -49,7 +49,7 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
     @Override
     @Transactional
     public UserCreatedResponse create(UserRegisterRequest userRegisterRequest)
-        throws UserAlreadyRegisteredException {
+        throws UserAlreadyRegisteredException, SendEmailException {
         if(userRepo.findByUsername(userRegisterRequest.getEmail()) != null) {
             throw new UserAlreadyRegisteredException("User already registered!!!");
         }
@@ -79,7 +79,7 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 
     @Override
     @Transactional
-    public UserAuthenticatedResponse login(UserLoginRequest userLoginRequest) throws Exception {
+    public UserAuthenticatedResponse login(UserLoginRequest userLoginRequest) throws BadCredentialsException {
         try {
             UsernamePasswordAuthenticationToken authentication =
                 new UsernamePasswordAuthenticationToken(userLoginRequest.getEmail(), userLoginRequest.getPassword());
@@ -93,10 +93,11 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
         return convertUtils.toUserAuthenticatedResponse(userLoginRequest.getEmail(), token);
     }
 
-    private void sendEmail(String emailTo) {
+    private void sendEmail(String emailTo) throws SendEmailException {
         try {
             emailHelper.sendMail(new RegisterTemplateEmail(emailTo));
         } catch (SendEmailException e) {
+            throw new SendEmailException(e.getMessage());
         }
 
     }

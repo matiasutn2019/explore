@@ -34,7 +34,7 @@ public class MovieController {
         value = "/movies",
         consumes = MediaType.APPLICATION_JSON_VALUE,
         produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<MovieResponseDetail> create(@RequestBody MovieRequest movieRequest) {;
+    public ResponseEntity<MovieResponseDetail> create(@RequestBody MovieRequest movieRequest) {
         return new ResponseEntity<>(movieService.create(movieRequest), HttpStatus.CREATED);
     }
 
